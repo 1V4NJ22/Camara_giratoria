@@ -22,7 +22,7 @@ void loop(){
   //Arranque manual del motor
   if (!digitalRead(arranque))
   {
-    while (digitalRead(arranque))
+    while (!digitalRead(arranque))
     {
       digitalWrite(rele, HIGH);
       delay(100);
