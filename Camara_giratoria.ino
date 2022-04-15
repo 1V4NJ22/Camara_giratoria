@@ -27,15 +27,11 @@ void loop(){
       digitalWrite(rele, HIGH);
       delay(100);
     }
+    digitalWrite(rele, LOW);
   }
   
   //Se divide entre 4 porque el pwm es de 8 bits (256)
-  velocidad = analogRead(potenciometro)/4;
-  digitalWrite(rele, LOW);
-  if (velocidad > 255*0.98)
-  {
-    velocidad = 255*0.98;
-  }
+  velocidad = map(analogRead(potenciometro), 0, 1023, 0, 250);
   analogWrite(motor, velocidad);
   delay(50);
   velocidad = analogRead(potenciometro);
