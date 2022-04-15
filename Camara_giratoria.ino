@@ -20,7 +20,7 @@ void setup(){
 }
 void loop(){
   //Arranque manual del motor
-  if (digitalRead(arranque))
+  if (!digitalRead(arranque))
   {
     while (digitalRead(arranque))
     {
