@@ -25,27 +25,27 @@ void loop(){
     size_t count = mySerial.readBytesUntil('\n', data, 2);
     
     DEBUG(data, count);
-    if (data == 'ON')
+    if (data[0] == 'O' && data[1] == 'N')
     {
       encendido = true;
     }
-    else if (data == 'OF')
+    else if (data[0] == 'O' && data[1] == 'F')
     {
       encendido = false;
     }
     else
     {
-      velocidad = (unsigned byte)data[0];
+      velocidad = (byte)data[0];
     }
   }
   //Se divide entre 4 porque el pwm es de 8 bits (256)
   if (encendido)
   {
-    analogWrite(motor, 0);
+    analogWrite(motor, velocidad);
   }
   else
   {
-    analogWrite(motor, velocidad);
+    analogWrite(motor, 0);
   }
   serialFlush();
   delay(50);
@@ -65,7 +65,7 @@ void DEBUG(char a[2], size_t b)
   }
   else
   {
-    Serial.print((unsigned byte)a[0]);
+    Serial.print((byte)a[0]);
   }
   Serial.println();
 }
