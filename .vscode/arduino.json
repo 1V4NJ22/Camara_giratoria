@@ -1,8 +1,8 @@
 {
     "sketch": "Camara_giratoria.ino",
     "output": "build",
-    "configuration": "cpu=atmega328",
-    "board": "arduino:avr:nano",
+    "configuration": "mhz=16MHz,cpu=atmega328p",
+    "board": "Optiboot:avr:optiboot32",
     "programmer": "arduino:arduinoasisp",
     "port": "COM4"
 }
