@@ -4,5 +4,5 @@
     "configuration": "mhz=16MHz,cpu=atmega328p",
     "board": "Optiboot:avr:optiboot32",
     "programmer": "arduino:arduinoasisp",
-    "port": "COM4"
+    "port": "COM5"
 }
