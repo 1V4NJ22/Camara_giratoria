@@ -1,3 +1,4 @@
+#include <EEPROM.h>
 #include <SoftwareSerial.h>
 //Puertos seriales por definidos por software
 SoftwareSerial mySerial(A4, A5); //Rx,
@@ -7,16 +8,14 @@ SoftwareSerial mySerial(A4, A5); //Rx,
   const byte motor = 5;
 
 //Constantes
-
+  
   //número de bytes recibidos por bluetooth a la vez
   const int bytes = 2;
 //Variables
 
   //  Cadena de bytes recibidos por el móduilo bluetooth
   char data[bytes];
-  // Encender motor
   bool encendido;
-  //  Velocidad del motor
   byte velocidad;
 
   int tiempoArranque;
@@ -35,7 +34,7 @@ void setup(){
 void loop(){
   //Bluetooth
   if (mySerial.available()) {
-    mySerial.readBytes(velocidad,bytes);
+    mySerial.readBytes(data,bytes);
     serialFlush();
     //2 bytes. el byte 0 es para enviar el tipo de comando y el byte 1 para una cantidad
     //byte 0
@@ -47,34 +46,40 @@ void loop(){
     {
     case 0:
       encendido = false;
+      Serial.println("Apagado");
       break;
     
     case 1:
       encendido = true;
+      Serial.println("Encendido");
       break;
     
     case 2:
       velocidad = data[1];
+      Serial.print("Velocidad: ");
+      Serial.println((byte)data[1]);
       break;
     
     case 3:
       tiempoArranque = data[1];
+      Serial.print("tiempo de arranque");
       break;
     
     case 4:
       tiempoGiro = data[1];
+      Serial.println("Encendido");
       break;
     }
 
-    Serial.println(velocidad[1]);
-    analogWrite(motor, velocidad[0]);
+    Serial.println(velocidad);
+    analogWrite(motor, velocidad);
   }
 }
 // Borrar datos del puerto serial
-void serialFlush()
+void serialFlush(){
   while(mySerial.available() > 0)
     char t = mySerial.read();
-
+}
 void DEBUG(char data[bytes], size_t count){
   for (int index = 0; index < count; index++)
     Serial.print(data[index]); 
